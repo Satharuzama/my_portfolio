@@ -551,8 +551,34 @@
             flex-shrink: 0;
         }
 
+        /* A missing icon shows its name in bold */
+        .icon-missing {
+            font-weight: 700;
+        }
+
+        /* Light mode: darken any light icon */
+        html:not(.dark-mode) img.light-icon {
+            filter: brightness(0);
+        }
+
+        /* The VS Code file is blue; make it match the dark icons in light mode */
+        html:not(.dark-mode) .skill-icon[src="images/vscode.svg"] {
+            filter: brightness(0);
+        }
+
         /* Dark mode: monochrome icons become white */
         html.dark-mode img.mono-icon {
+            filter: brightness(0) invert(1);
+        }
+
+        /* These six files are single-colour artwork, so they also need inverting
+           in dark mode to stay visible; their classes are unchanged */
+        html.dark-mode .skill-icon[src="images/python.svg"],
+        html.dark-mode .skill-icon[src="images/javascript.svg"],
+        html.dark-mode .skill-icon[src="images/html5.svg"],
+        html.dark-mode .skill-icon[src="images/css.svg"],
+        html.dark-mode .skill-icon[src="images/vscode.svg"],
+        html.dark-mode .hobby-icon[src="images/video-editing.png"] {
             filter: brightness(0) invert(1);
         }
 
@@ -1016,7 +1042,7 @@
             <div class="skill-group">
                 <h3>Programming</h3>
                 <div class="skill-item">
-                    <img src="images/icons8-java-50.png" alt="Java icon" class="skill-icon mono-icon">
+                    <img src="images/java.svg" alt="Java icon" class="skill-icon mono-icon">
                     <span class="skill-name">Java</span>
                 </div>
                 <div class="skill-item">
@@ -1060,7 +1086,7 @@
             <div class="skill-group">
                 <h3>Tools</h3>
                 <div class="skill-item">
-                    <img src="images/icons8-vs-code-48.png" alt="VS Code icon" class="skill-icon">
+                    <img src="images/vscode.svg" alt="VS Code icon" class="skill-icon">
                     <span class="skill-name">VS Code</span>
                 </div>
                 <div class="skill-item">
@@ -1081,11 +1107,11 @@
             <div class="skill-group">
                 <h3>AI Tools</h3>
                 <div class="skill-item">
-                    <img src="images/icons8-claude-50.png" alt="Claude icon" class="skill-icon mono-icon">
+                    <img src="images/claude.svg" alt="Claude icon" class="skill-icon mono-icon">
                     <span class="skill-name">Claude</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/icons8-chatgpt-50.png" alt="ChatGPT icon" class="skill-icon mono-icon">
+                    <img src="images/chatgpt.svg" alt="ChatGPT icon" class="skill-icon mono-icon">
                     <span class="skill-name">ChatGPT</span>
                 </div>
             </div>
@@ -1208,15 +1234,15 @@
             <h2>Hobbies</h2>
             <div class="hobbies-list">
                 <div class="hobby-item">
-                    <img src="images/icons8-king-64.png" alt="Chess icon" class="hobby-icon mono-icon">
+                    <img src="images/chess.png" alt="Chess icon" class="hobby-icon mono-icon">
                     <div class="hobby-label">Chess</div>
                 </div>
                 <div class="hobby-item">
-                    <img src="images/icons8-video-editing-48.png" alt="Video Editing icon" class="hobby-icon">
+                    <img src="images/video-editing.png" alt="Video Editing icon" class="hobby-icon">
                     <div class="hobby-label">Video Editing</div>
                 </div>
                 <div class="hobby-item">
-                    <img src="images/icons8-rubik's-cube-50.png" alt="Cubing icon" class="hobby-icon mono-icon">
+                    <img src="images/cubing.png" alt="Cubing icon" class="hobby-icon mono-icon">
                     <div class="hobby-label">Cubing</div>
                 </div>
             </div>
@@ -1295,99 +1321,34 @@
             navLinks.classList.remove('active');
         });
 
-        // Speaker button: play audio file with speech synthesis fallback
+        // Speaker button: play the recorded name
         const speakButton = document.getElementById('speakButton');
         const audioElement = document.getElementById('pronunciationAudio');
         const speakError = document.getElementById('speakError');
-        let voiceCheckTimeout;
+
+        function showSoundError() {
+            speakError.textContent = 'Sound file not found. Add images/sathar.mp3.';
+        }
+
+        audioElement.addEventListener('error', showSoundError);
 
         speakButton.addEventListener('click', () => {
-            // Clear error message
             speakError.textContent = '';
 
-            // Stop any currently playing audio or speech
-            window.speechSynthesis.cancel();
+            // Restart the recording from the beginning
             audioElement.pause();
             audioElement.currentTime = 0;
-
-            // Try to play audio file first
             audioElement.src = 'images/sathar.mp3';
-
-            // Force load and play the audio
             audioElement.load();
 
             const playPromise = audioElement.play();
-
             if (playPromise !== undefined) {
-                playPromise
-                    .then(() => {
-                        console.log('Audio playing successfully');
-                    })
-                    .catch((error) => {
-                        console.log('Audio playback failed:', error);
-                        // Audio file failed, use speech synthesis
-                        useSpeechSynthesis();
-                    });
-            } else {
-                console.log('Audio play promise not supported, trying speech synthesis');
-                useSpeechSynthesis();
+                playPromise.catch(() => {
+                    // Report a missing/broken file, not a blocked autoplay attempt
+                    if (audioElement.error) showSoundError();
+                });
             }
         });
-
-        function useSpeechSynthesis() {
-            // Use Hindi text "सत्थार"
-            const utterance = new SpeechSynthesisUtterance('सत्थार');
-            utterance.lang = 'hi-IN';
-            utterance.rate = 0.9;
-            utterance.pitch = 1.1;
-
-            // Get voices
-            let voices = window.speechSynthesis.getVoices();
-
-            if (!voices.length) {
-                // Wait for voices to load with timeout
-                clearTimeout(voiceCheckTimeout);
-
-                const checkVoices = () => {
-                    voices = window.speechSynthesis.getVoices();
-                    if (voices.length) {
-                        assignVoice(utterance, voices);
-                        window.speechSynthesis.speak(utterance);
-                    }
-                };
-
-                window.speechSynthesis.onvoiceschanged = checkVoices;
-
-                // Timeout after 1.5 seconds
-                voiceCheckTimeout = setTimeout(() => {
-                    voices = window.speechSynthesis.getVoices();
-                    if (voices.length) {
-                        assignVoice(utterance, voices);
-                        window.speechSynthesis.speak(utterance);
-                    } else {
-                        speakError.textContent = 'Sound is not available on this device.';
-                    }
-                    window.speechSynthesis.onvoiceschanged = null;
-                }, 1500);
-            } else {
-                assignVoice(utterance, voices);
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        function assignVoice(utterance, voices) {
-            // Prefer female Hindi voice
-            let selectedVoice = voices.find(voice => voice.lang === 'hi-IN' && voice.name.toLowerCase().includes('female'));
-            if (!selectedVoice) {
-                selectedVoice = voices.find(voice => voice.lang === 'hi-IN');
-            }
-            if (!selectedVoice) {
-                selectedVoice = voices.find(voice => voice.lang.startsWith('hi'));
-            }
-            if (selectedVoice) {
-                utterance.voice = selectedVoice;
-            }
-        }
 
         speakButton.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -1396,11 +1357,15 @@
             }
         });
 
-        // Icon fallback: hide a broken image only, the skill name stays visible
+        // Icon fallback: a missing icon shows the skill name in bold
         document.querySelectorAll('.skill-icon, .hobby-icon').forEach(img => {
-            const hide = () => { img.style.display = 'none'; };
-            img.addEventListener('error', hide);
-            if (img.complete && img.naturalWidth === 0) hide();
+            const showName = () => {
+                img.style.display = 'none';
+                const name = img.parentElement.querySelector('.skill-name, .hobby-label');
+                if (name) name.classList.add('icon-missing');
+            };
+            img.addEventListener('error', showName);
+            if (img.complete && img.naturalWidth === 0) showName();
         });
 
         // Project preview fallback: show the project name if its image is missing
@@ -1471,6 +1436,7 @@
             const pointer = { x: 0, y: 0 };
             const head = { x: 0, y: 0 };
             let started = false;
+            let lastMove = 0;
             let rafId = 0;
 
             // Keep the canvas sharp on high-density screens
@@ -1492,6 +1458,7 @@
             window.addEventListener('pointermove', (e) => {
                 pointer.x = e.clientX;
                 pointer.y = e.clientY;
+                lastMove = performance.now();
                 if (!started) {
                     started = true;
                     head.x = pointer.x;
@@ -1507,16 +1474,22 @@
                 // The head eases toward the pointer for a slight smooth delay
                 let moving = false;
                 if (started) {
-                    const dx = pointer.x - head.x;
-                    const dy = pointer.y - head.y;
-                    if (Math.hypot(dx, dy) > 0.2) {
-                        head.x += dx * EASE;
-                        head.y += dy * EASE;
-                        moving = true;
-                        const last = points[points.length - 1];
-                        if (!last || Math.hypot(head.x - last.x, head.y - last.y) > 1.5) {
-                            points.push({ x: head.x, y: head.y, time: now });
-                            while (points.length > 90) points.shift();
+                    if (now - lastMove > 120) {
+                        // Pointer stopped: settle the head without extending the trail
+                        head.x = pointer.x;
+                        head.y = pointer.y;
+                    } else {
+                        const dx = pointer.x - head.x;
+                        const dy = pointer.y - head.y;
+                        if (Math.hypot(dx, dy) > 0.2) {
+                            head.x += dx * EASE;
+                            head.y += dy * EASE;
+                            moving = true;
+                            const last = points[points.length - 1];
+                            if (!last || Math.hypot(head.x - last.x, head.y - last.y) > 1.5) {
+                                points.push({ x: head.x, y: head.y, time: now });
+                                while (points.length > 90) points.shift();
+                            }
                         }
                     }
                 }
