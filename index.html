@@ -56,7 +56,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Cursor trail canvas: fixed overlay, never blocks the pointer */
+        /* Cursor and finger trail canvas: fixed overlay, never blocks the pointer */
         .trail-canvas {
             position: fixed;
             inset: 0;
@@ -64,13 +64,6 @@
             height: 100%;
             pointer-events: none;
             z-index: 9998;
-        }
-
-        /* No trail canvas on touch devices */
-        @media (hover: none), (pointer: coarse) {
-            .trail-canvas {
-                display: none;
-            }
         }
 
         /* Navigation */
@@ -380,6 +373,8 @@
 
         /* Keep the hero text visible when animations are disabled */
         @media (prefers-reduced-motion: reduce) {
+            .hero h1 span, section.scroll-animate { opacity: 1 !important; transform: none !important; }
+
             .pronunciation,
             .hero .role,
             .hero .intro,
@@ -517,6 +512,33 @@
             }
         }
 
+        /* Currently learning list below the skill groups */
+        .currently-learning {
+            max-width: 1100px;
+            margin: 2rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .currently-learning h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .currently-learning ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 2.5rem;
+            padding-left: 1.25rem;
+            list-style: disc;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
         .skill-group {
             padding: 1.5rem;
             border: 1px solid var(--divider);
@@ -554,11 +576,6 @@
         /* A missing icon shows its name in bold */
         .icon-missing {
             font-weight: 700;
-        }
-
-        /* Light mode: darken any light icon */
-        html:not(.dark-mode) img.light-icon {
-            filter: brightness(0);
         }
 
         /* The VS Code file is blue; make it match the dark icons in light mode */
@@ -862,6 +879,14 @@
         }
 
         /* Contact section - icons only */
+        .contact-line {
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+            padding: 0 2rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
         .contact-info {
             display: flex;
             gap: 2rem;
@@ -874,13 +899,48 @@
 
         .contact-icon-link {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            width: auto;
+            height: auto;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .contact-icon-box {
+            display: flex;
             align-items: center;
             justify-content: center;
             width: 48px;
             height: 48px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            flex-shrink: 0;
+        }
+
+        .contact-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .contact-icon-link img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .contact-icon-fallback {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.1;
+            max-width: 48px;
         }
 
         .contact-icon-link svg {
@@ -895,7 +955,7 @@
             stroke: none;
         }
 
-        .contact-icon-link:hover {
+        .contact-icon-link:hover .contact-icon-box {
             background-color: var(--divider);
             transform: translateY(-2px);
         }
@@ -1017,7 +1077,7 @@
         <div id="speakError" class="speak-error"></div>
 
         <div class="role">Java Full Stack Developer (in training)</div>
-        <p class="intro">Learning at TAP Academy, Bengaluru to build modern web applications.</p>
+        <p class="intro">Java Full Stack Developer building clean, responsive web applications. Currently training at TAP Academy, Bengaluru.</p>
         <div class="hero-buttons">
             <a href="#projects" class="btn btn-primary">View Projects</a>
             <a href="#contact" class="btn btn-outline">Contact Me</a>
@@ -1028,8 +1088,8 @@
     <section id="about" class="scroll-animate">
         <h2>About</h2>
         <div class="about">
-            <p>I am a Java Full Stack Developer in training at TAP Academy, Bengaluru, passionate about building scalable web applications. I combine strong problem-solving skills with hands-on experience in full-stack development using Java, JavaScript, and modern front-end frameworks.</p>
-            <p>Currently focused on mastering Core Java, Spring Boot, and React to deliver robust, production-ready solutions. Committed to continuous learning and writing clean, maintainable code.</p>
+            <p>I am a BCA graduate training in Java Full Stack Development at TAP Academy, Bengaluru. I have built responsive web applications with React, JavaScript, and HTML/CSS.</p>
+            <p>I am learning Spring Boot, Core Java, and MySQL to build complete, working systems. I bring problem-solving skills, quick learning, and good time management to every project.</p>
         </div>
     </section>
 
@@ -1116,6 +1176,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="currently-learning">
+            <h3>Currently Learning</h3>
+            <ul>
+                <li>Core Java</li>
+                <li>Advanced Java</li>
+                <li>Spring Boot</li>
+                <li>React</li>
+                <li>JDBC</li>
+                <li>Hibernate</li>
+                <li>MySQL</li>
+                <li>AI Tools</li>
+            </ul>
+        </div>
     </section>
 
     <!-- Projects section -->
@@ -1134,6 +1208,7 @@
                         <span class="tech-pill">Axios</span>
                         <span class="tech-pill">Vite</span>
                     </div>
+                    <p>A responsive e-commerce front end with product browsing, a shopping cart, checkout, order management, and order tracking. Built with React Router and React hooks.</p>
                 </div>
 
                 <div style="padding: 2rem;">
@@ -1158,8 +1233,9 @@
                         <span class="tech-pill">HTML5</span>
                         <span class="tech-pill">CSS3</span>
                         <span class="tech-pill">JavaScript</span>
-                        <span class="tech-pill">Responsive</span>
+                        <span class="tech-pill">Responsive Web Design</span>
                     </div>
+                    <p>A task manager to add, mark, and delete tasks, with keyboard support. Built with JavaScript DOM manipulation and event handling.</p>
                 </div>
 
                 <div style="padding: 2rem;">
@@ -1232,6 +1308,7 @@
         <!-- Hobbies section -->
         <section id="hobbies" class="scroll-animate">
             <h2>Hobbies</h2>
+            <p>Chess, video editing, and cubing (solving the Rubik’s Cube).</p>
             <div class="hobbies-list">
                 <div class="hobby-item">
                     <img src="images/chess.png" alt="Chess icon" class="hobby-icon mono-icon">
@@ -1252,15 +1329,32 @@
     <!-- Contact section -->
     <section id="contact" class="scroll-animate">
         <h2>Let's Talk</h2>
+        <p class="contact-line">Open to Java Full Stack Developer roles. Let’s connect.</p>
         <div class="contact-info">
             <a href="mailto:shakesatharuzama@gmail.com" class="contact-icon-link" aria-label="Email Sathar">
-                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none"/></svg>
+                <span class="contact-icon-box">
+                    <svg viewBox="0 0 24 24"><path fill="none" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none"/></svg>
+                </span>
+                <span class="contact-label">Email</span>
             </a>
             <a href="https://www.linkedin.com/in/shek-sataruzama/" target="_blank" class="contact-icon-link" aria-label="LinkedIn profile">
-                <svg class="fill-icon" viewBox="0 0 24 24"><path d="M20 0H4C1.794 0 0 1.794 0 4v16c0 2.206 1.794 4 4 4h16c2.206 0 4-1.794 4-4V4c0-2.206-1.794-4-4-4zM8 20H5V8h3v12zm-1.5-13.7c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zM20 20h-3v-5.604c0-3.368-4-3.113-4 0V20h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V20z"/></svg>
+                <span class="contact-icon-box">
+                    <svg class="fill-icon" viewBox="0 0 24 24"><path d="M20 0H4C1.794 0 0 1.794 0 4v16c0 2.206 1.794 4 4 4h16c2.206 0 4-1.794 4-4V4c0-2.206-1.794-4-4-4zM8 20H5V8h3v12zm-1.5-13.7c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zM20 20h-3v-5.604c0-3.368-4-3.113-4 0V20h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V20z"/></svg>
+                </span>
+                <span class="contact-label">LinkedIn</span>
             </a>
             <a href="https://github.com/Satharuzama/" target="_blank" class="contact-icon-link" aria-label="GitHub profile">
-                <svg class="fill-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.41 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.89 1.529 2.341 1.544 2.914 1.186.09-.923.347-1.546.635-1.901-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                <span class="contact-icon-box">
+                    <svg class="fill-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.41 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.89 1.529 2.341 1.544 2.914 1.186.09-.923.347-1.546.635-1.901-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                </span>
+                <span class="contact-label">GitHub</span>
+            </a>
+            <a href="https://www.instagram.com/satharuzama/" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Instagram profile">
+                <span class="contact-icon-box">
+                    <img src="images/instagram.svg" alt="Instagram icon" class="mono-icon">
+                    <span class="contact-icon-fallback" hidden>Instagram</span>
+                </span>
+                <span class="contact-label">Instagram</span>
             </a>
         </div>
     </section>
@@ -1368,6 +1462,17 @@
             if (img.complete && img.naturalWidth === 0) showName();
         });
 
+        // Contact image fallback: show the platform name if its icon is missing
+        document.querySelectorAll('.contact-icon-link img').forEach(img => {
+            const showName = () => {
+                img.style.display = 'none';
+                const fallback = img.parentElement.querySelector('.contact-icon-fallback');
+                if (fallback) fallback.hidden = false;
+            };
+            img.addEventListener('error', showName);
+            if (img.complete && img.naturalWidth === 0) showName();
+        });
+
         // Project preview fallback: show the project name if its image is missing
         document.querySelectorAll('.project-preview img').forEach(img => {
             const showName = () => {
@@ -1418,17 +1523,19 @@
             });
         });
 
-        // Cursor trail: a thin orange line that follows the pointer (mouse/trackpad only)
+        // Cursor and finger trail: a thin orange line that follows the pointer
         (function cursorTrail() {
             const canvas = document.getElementById('trailCanvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             if (!ctx) return;
 
-            // Draw nothing on touch devices or when reduced motion is preferred
+            // Draw nothing when reduced motion is preferred
             const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+            const touchPointer = window.matchMedia('(hover: none) and (pointer: coarse)');
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-            if (!finePointer.matches || reduceMotion.matches) return;
+            if ((!finePointer.matches && !touchPointer.matches) || reduceMotion.matches) return;
+            const touchMode = touchPointer.matches;
 
             const TRAIL_LIFE = 400;   // ms a point lives before it has faded out
             const EASE = 0.3;         // slight smooth delay behind the pointer
@@ -1455,7 +1562,9 @@
                 if (!rafId) rafId = requestAnimationFrame(frame);
             }
 
-            window.addEventListener('pointermove', (e) => {
+            // Mouse and trackpad follow pointermove; fingers are handled below
+            function track(e) {
+                if (touchMode && e.pointerType !== 'touch') return;
                 pointer.x = e.clientX;
                 pointer.y = e.clientY;
                 lastMove = performance.now();
@@ -1465,7 +1574,58 @@
                     head.y = pointer.y;
                 }
                 wake();
+            }
+
+            window.addEventListener('pointermove', track, { passive: true });
+
+            // Fingers: start a fresh trail where the finger touches the screen
+            window.addEventListener('pointerdown', (e) => {
+                if (!touchMode || e.pointerType !== 'touch') return;
+                points.length = 0;
+                pointer.x = e.clientX;
+                pointer.y = e.clientY;
+                head.x = pointer.x;
+                head.y = pointer.y;
+                started = true;
+                lastMove = performance.now();
+                points.push({ x: head.x, y: head.y, time: lastMove });
+                wake();
             }, { passive: true });
+
+            // Finger lifted or touch cancelled: stop adding points; the trail fades
+            function stopTouch(e) {
+                if (!touchMode || e.pointerType !== 'touch') return;
+                started = false;
+                lastMove = 0;
+            }
+            window.addEventListener('pointerup', stopTouch, { passive: true });
+
+            // Touch events keep the trail alive when a scroll gesture ends the
+            // pointer stream (the browser sends pointercancel but touchmove continues)
+            function touchPosition(e) {
+                const touch = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]);
+                return touch ? { x: touch.clientX, y: touch.clientY } : null;
+            }
+
+            window.addEventListener('touchstart', (e) => {
+                if (!touchMode) return;
+                const touch = touchPosition(e);
+                if (touch) track({ pointerType: 'touch', clientX: touch.x, clientY: touch.y });
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!touchMode) return;
+                const touch = touchPosition(e);
+                if (touch) track({ pointerType: 'touch', clientX: touch.x, clientY: touch.y });
+            }, { passive: true });
+
+            function stopTouchEvent() {
+                if (!touchMode) return;
+                started = false;
+                lastMove = 0;
+            }
+            window.addEventListener('touchend', stopTouchEvent, { passive: true });
+            window.addEventListener('touchcancel', stopTouchEvent, { passive: true });
 
             function frame(now) {
                 // Forget points older than the fade time
