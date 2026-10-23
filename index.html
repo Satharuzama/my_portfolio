@@ -217,8 +217,17 @@
                 z-index: 1000;
             }
 
+            .nav-container {
+                justify-content: flex-end;
+                gap: 1rem;
+            }
+
+            .nav-logo {
+                margin-right: auto;
+            }
+
             .nav-right {
-                order: 2;
+                order: 1;
                 gap: 1rem;
             }
 
@@ -248,7 +257,7 @@
 
             .menu-button {
                 display: block;
-                order: 1;
+                order: 2;
             }
         }
 
@@ -863,12 +872,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
         .hobby-icon {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
             flex-shrink: 0;
         }
 
@@ -889,9 +899,10 @@
 
         .contact-info {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             justify-content: flex-start;
             align-items: center;
+            flex-wrap: wrap;
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 2rem;
@@ -910,6 +921,7 @@
         }
 
         .contact-icon-box {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -927,27 +939,55 @@
             color: var(--text-muted);
         }
 
-        .contact-icon-link img {
-            width: 28px;
-            height: 28px;
+        .contact-icon-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            transition: opacity 0.3s ease;
         }
 
-        .contact-icon-fallback {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            text-align: center;
-            line-height: 1.1;
+        .contact-icon-outline img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .contact-icon-color {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 32px;
+            width: auto;
             max-width: 48px;
+            object-fit: contain;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-icon-link:hover .contact-icon-color {
+            opacity: 1;
+        }
+
+        .contact-icon-link:hover .contact-icon-box:has(.contact-icon-color:not([style*="display: none"])) .contact-icon-outline {
+            opacity: 0;
+        }
+
+        html.dark-mode .github-color {
+            content: url('images/github-color-dark.png');
         }
 
         .contact-icon-link svg {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
+            color: var(--text-main);
             stroke: var(--text-main);
             stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .contact-icon-link svg.fill-icon {
@@ -956,7 +996,6 @@
         }
 
         .contact-icon-link:hover .contact-icon-box {
-            background-color: var(--divider);
             transform: translateY(-2px);
         }
 
@@ -967,6 +1006,17 @@
 
         .contact-icon-link:hover svg.fill-icon {
             fill: var(--accent);
+        }
+
+        /* Touch screens have no hover, so keep the outline icon only */
+        @media (hover: none), (pointer: coarse) {
+            .contact-icon-link .contact-icon-color {
+                display: none !important;
+            }
+
+            .contact-icon-link:hover .contact-icon-outline {
+                opacity: 1 !important;
+            }
         }
 
         @media (max-width: 600px) {
@@ -1027,7 +1077,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#home" class="nav-logo">Shek Portfolio</a>
+            <a href="#home" class="nav-logo">Sathar Portfolio</a>
             <div class="nav-right">
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home">Home</a></li>
@@ -1308,7 +1358,6 @@
         <!-- Hobbies section -->
         <section id="hobbies" class="scroll-animate">
             <h2>Hobbies</h2>
-            <p>Chess, video editing, and cubing (solving the Rubik’s Cube).</p>
             <div class="hobbies-list">
                 <div class="hobby-item">
                     <img src="images/chess.png" alt="Chess icon" class="hobby-icon mono-icon">
@@ -1328,31 +1377,42 @@
 
     <!-- Contact section -->
     <section id="contact" class="scroll-animate">
-        <h2>Let's Talk</h2>
+        <h2>Get in Touch</h2>
         <p class="contact-line">Open to Java Full Stack Developer roles. Let’s connect.</p>
         <div class="contact-info">
-            <a href="mailto:shakesatharuzama@gmail.com" class="contact-icon-link" aria-label="Email Sathar">
+            <a href="mailto:shakesatharuzama@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Email">
                 <span class="contact-icon-box">
-                    <svg viewBox="0 0 24 24"><path fill="none" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none"/></svg>
+                    <span class="contact-icon-outline">
+                        <svg viewBox="0 0 24 24"><path fill="none" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none"/></svg>
+                    </span>
+                    <img src="images/gmail-color.png" alt="Gmail logo" class="contact-icon-color">
                 </span>
                 <span class="contact-label">Email</span>
             </a>
-            <a href="https://www.linkedin.com/in/shek-sataruzama/" target="_blank" class="contact-icon-link" aria-label="LinkedIn profile">
+            <a href="https://www.linkedin.com/in/shek-sataruzama/" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="LinkedIn profile">
                 <span class="contact-icon-box">
-                    <svg class="fill-icon" viewBox="0 0 24 24"><path d="M20 0H4C1.794 0 0 1.794 0 4v16c0 2.206 1.794 4 4 4h16c2.206 0 4-1.794 4-4V4c0-2.206-1.794-4-4-4zM8 20H5V8h3v12zm-1.5-13.7c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zM20 20h-3v-5.604c0-3.368-4-3.113-4 0V20h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V20z"/></svg>
+                    <span class="contact-icon-outline">
+                        <img src="images/linkedin.svg" alt="LinkedIn logo" class="contact-outline-img mono-icon">
+                    </span>
+                    <img src="images/linkedin-color.png" alt="LinkedIn logo" class="contact-icon-color">
                 </span>
                 <span class="contact-label">LinkedIn</span>
             </a>
-            <a href="https://github.com/Satharuzama/" target="_blank" class="contact-icon-link" aria-label="GitHub profile">
+            <a href="https://github.com/Satharuzama/" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="GitHub profile">
                 <span class="contact-icon-box">
-                    <svg class="fill-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.41 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.89 1.529 2.341 1.544 2.914 1.186.09-.923.347-1.546.635-1.901-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                    <span class="contact-icon-outline">
+                        <img src="images/github.svg" alt="GitHub logo" class="contact-outline-img mono-icon">
+                    </span>
+                    <img src="images/github-color.png" alt="GitHub logo" class="contact-icon-color github-color">
                 </span>
                 <span class="contact-label">GitHub</span>
             </a>
             <a href="https://www.instagram.com/satharuzama/" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Instagram profile">
                 <span class="contact-icon-box">
-                    <img src="images/instagram.svg" alt="Instagram icon" class="mono-icon">
-                    <span class="contact-icon-fallback" hidden>Instagram</span>
+                    <span class="contact-icon-outline">
+                        <img src="images/instagram.svg" alt="Instagram logo" class="contact-outline-img mono-icon">
+                    </span>
+                    <img src="images/instagram-color.png" alt="Instagram logo" class="contact-icon-color">
                 </span>
                 <span class="contact-label">Instagram</span>
             </a>
