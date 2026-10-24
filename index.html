@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shek Sataruzama | Java Full Stack Developer</title>
+    <title>Shek Portfolio | Java Full Stack Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Reset and setup */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ===== Reset and setup ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Color variables - light mode */
+        /* ===== Colours ===== */
         :root {
             --bg-primary: #FEFFF8;
             --bg-secondary: #F9F8F3;
@@ -24,8 +20,6 @@
             --divider: rgba(17, 17, 17, 0.15);
             --card-bg: #FFFFFF;
         }
-
-        /* Color variables - dark mode */
         html.dark-mode {
             --bg-primary: #0E0E0E;
             --bg-secondary: #1a1a1a;
@@ -36,17 +30,13 @@
             --card-bg: #1a1a1a;
         }
 
-        /* Respect reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
+            * { animation: none !important; transition: none !important; }
+            .hero h1 span, section.scroll-animate { opacity: 1 !important; transform: none !important; }
+            .pronunciation, .hero .role, .hero .intro, .hero-buttons { opacity: 1 !important; }
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -56,27 +46,23 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Cursor and finger trail canvas: fixed overlay, never blocks the pointer */
+        /* ===== Trail canvas ===== */
         .trail-canvas {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; inset: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 9998;
         }
 
-        /* Navigation */
+        /* ===== Navigation ===== */
         nav {
-            position: sticky;
-            top: 0;
+            position: sticky; top: 0;
             background-color: var(--bg-primary);
             z-index: 1000;
             border-bottom: 1px solid var(--divider);
             padding: 1.5rem 2rem;
             transition: background-color 0.3s ease;
         }
-
         .nav-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -85,7 +71,6 @@
             align-items: center;
             position: relative;
         }
-
         .nav-logo {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.5rem;
@@ -95,19 +80,8 @@
             text-decoration: none;
             text-transform: uppercase;
         }
-
-        .nav-right {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
+        .nav-right { display: flex; gap: 2rem; align-items: center; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
             color: var(--text-main);
             text-decoration: none;
@@ -116,29 +90,20 @@
             text-transform: uppercase;
             font-weight: 500;
             position: relative;
-            transition: color 0.3s ease;
         }
-
         .nav-links a::after {
             content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
+            position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px;
             background-color: var(--accent);
             transition: width 0.3s ease;
         }
+        .nav-links a:hover::after { width: 100%; }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Theme toggle pill switch */
+        /* ===== Theme toggle ===== */
         .theme-toggle {
             position: relative;
-            width: 56px;
-            height: 28px;
+            width: 56px; height: 28px;
             background-color: var(--divider);
             border: none;
             border-radius: 14px;
@@ -146,60 +111,31 @@
             display: flex;
             align-items: center;
             padding: 2px;
-            transition: background-color 0.3s ease;
             flex-shrink: 0;
         }
-
-        .theme-toggle:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
+        .theme-toggle:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
         .theme-toggle::before {
             content: '';
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             background-color: var(--text-main);
             border-radius: 50%;
             left: 2px;
             transition: left 0.3s ease;
             z-index: 10;
         }
-
+        html.dark-mode .theme-toggle::before { left: 30px; }
         .theme-toggle .icon {
             position: absolute;
-            width: 14px;
-            height: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
+            width: 14px; height: 14px;
+            top: 50%; transform: translateY(-50%);
             z-index: 5;
-        }
-
-        .theme-toggle .sun-icon {
-            left: 7px;
             color: #111111;
         }
+        .theme-toggle .sun-icon { left: 7px; }
+        .theme-toggle .moon-icon { right: 7px; }
+        html.dark-mode .theme-toggle .icon { color: #FEFFF8; }
 
-        .theme-toggle .moon-icon {
-            right: 7px;
-            color: #111111;
-        }
-
-        html.dark-mode .theme-toggle .sun-icon {
-            color: #FEFFF8;
-        }
-
-        html.dark-mode .theme-toggle .moon-icon {
-            color: #FEFFF8;
-        }
-
-        html.dark-mode .theme-toggle::before {
-            left: 30px;
-        }
-
-        /* Mobile menu button */
         .menu-button {
             display: none;
             background: none;
@@ -207,35 +143,14 @@
             color: var(--text-main);
             font-size: 1.5rem;
             cursor: pointer;
-            z-index: 1001;
         }
-
         @media (max-width: 768px) {
-            nav {
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-            }
-
-            .nav-container {
-                justify-content: flex-end;
-                gap: 1rem;
-            }
-
-            .nav-logo {
-                margin-right: auto;
-            }
-
-            .nav-right {
-                order: 1;
-                gap: 1rem;
-            }
-
+            .nav-container { justify-content: space-between; gap: 1rem; }
+            .nav-right { order: 2; gap: 1rem; }
+            .menu-button { display: block; order: 1; }
             .nav-links {
                 position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
+                top: 100%; left: 0; right: 0;
                 flex-direction: column;
                 gap: 0;
                 background-color: var(--bg-primary);
@@ -244,24 +159,15 @@
                 transition: max-height 0.3s ease;
                 border-bottom: 1px solid var(--divider);
             }
-
-            .nav-links.active {
-                max-height: 400px;
-            }
-
+            .nav-links.active { max-height: 400px; }
             .nav-links a {
                 display: block;
                 padding: 1rem 2rem;
                 border-bottom: 1px solid var(--divider);
             }
-
-            .menu-button {
-                display: block;
-                order: 2;
-            }
         }
 
-        /* Hero section */
+        /* ===== Hero ===== */
         .hero {
             position: relative;
             overflow: hidden;
@@ -271,13 +177,14 @@
             text-align: center;
             scroll-margin-top: 6rem;
         }
-
-        /* Keep hero content above the grid canvas */
-        .hero > *:not(.hero-grid-canvas) {
-            position: relative;
-            z-index: 1;
+        .hero > *:not(.hero-grid-canvas) { position: relative; z-index: 1; }
+        .hero-grid-canvas {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            display: block;
         }
-
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: clamp(2.5rem, 6.5vw, 7rem);
@@ -287,20 +194,16 @@
             color: var(--text-main);
             text-transform: uppercase;
             line-height: 1;
-            overflow: hidden;
         }
-
         .hero h1 span {
             display: inline-block;
             animation: slideInUp 0.6s ease-out forwards;
             opacity: 0;
         }
-
         .hero h1 span:nth-child(1) { animation-delay: 0.1s; }
         .hero h1 span:nth-child(2) { animation-delay: 0.2s; }
         .hero h1 span:nth-child(3) { animation-delay: 0.3s; }
 
-        /* Pronunciation line */
         .pronunciation {
             display: flex;
             align-items: center;
@@ -310,47 +213,31 @@
             animation: fadeIn 0.6s ease-out 0.4s forwards;
             opacity: 0;
         }
-
         .pronunciation-text {
             font-size: 1.1rem;
             color: var(--text-muted);
             font-style: italic;
         }
-
         .speak-button {
             background-color: var(--accent);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
             flex-shrink: 0;
         }
-
-        .speak-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(255, 100, 50, 0.3);
-        }
-
-        .speak-button:focus {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
+        .speak-button:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
         .speak-error {
             font-size: 0.9rem;
             color: var(--text-muted);
             margin-top: 0.5rem;
-            text-align: center;
             min-height: 1.2rem;
         }
-
         .hero .role {
             font-family: 'Bebas Neue', sans-serif;
             font-size: clamp(1.25rem, 2.5vw, 2rem);
@@ -361,7 +248,6 @@
             animation: fadeIn 0.6s ease-out 0.5s forwards;
             opacity: 0;
         }
-
         .hero .intro {
             font-size: 1.1rem;
             color: var(--text-muted);
@@ -370,7 +256,6 @@
             animation: fadeIn 0.6s ease-out 0.6s forwards;
             opacity: 0;
         }
-
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
@@ -380,36 +265,9 @@
             opacity: 0;
         }
 
-        /* Keep the hero text visible when animations are disabled */
-        @media (prefers-reduced-motion: reduce) {
-            .hero h1 span, section.scroll-animate { opacity: 1 !important; transform: none !important; }
-
-            .pronunciation,
-            .hero .role,
-            .hero .intro,
-            .hero-buttons {
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 4rem 1.5rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-
-        /* Buttons */
+        /* ===== Buttons ===== */
         .btn {
             padding: 0.9rem 2rem;
-            border-radius: 0;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
@@ -419,49 +277,21 @@
             border: 1px solid transparent;
             cursor: pointer;
             display: inline-block;
-            font-family: 'DM Sans', sans-serif;
         }
+        .btn-primary { background-color: var(--accent); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(255, 100, 50, 0.2); }
+        .btn-outline { background-color: transparent; color: var(--text-main); border: 1px solid var(--text-main); }
+        .btn-outline:hover { background-color: var(--text-main); color: var(--bg-primary); }
 
-        .btn-primary {
-            background-color: var(--accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(255, 100, 50, 0.2);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--text-main);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--text-main);
-            color: var(--bg-primary);
-        }
-
-        /* Sections with scroll animation */
-        section {
-            padding: 3.5rem 0;
-            scroll-margin-top: 6rem;
-        }
-
-        section.scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        section.scroll-animate.visible {
-            animation: slideInUp 0.8s ease-out forwards;
-        }
+        /* ===== Sections ===== */
+        section { padding: 3.5rem 0; scroll-margin-top: 6rem; }
+        section.scroll-animate { opacity: 0; transform: translateY(30px); }
+        section.scroll-animate.visible { animation: slideInUp 0.8s ease-out forwards; }
 
         section h2 {
             max-width: 1100px;
             margin: 0 auto 3rem;
-            padding: 0 2rem;
+            padding: 0 2rem 1.5rem;
             font-family: 'Bebas Neue', sans-serif;
             font-size: clamp(2.5rem, 4vw, 4rem);
             font-weight: 700;
@@ -470,34 +300,18 @@
             text-transform: uppercase;
             line-height: 1.1;
             position: relative;
-            padding-bottom: 1.5rem;
         }
-
         section h2::after {
             content: '';
-            position: absolute;
-            bottom: 0;
-            left: 2rem;
-            right: 2rem;
+            position: absolute; bottom: 0; left: 2rem; right: 2rem;
             height: 1px;
             background-color: var(--accent);
         }
 
-        /* About section */
-        .about {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+        .about { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .about p { font-size: 1.05rem; color: var(--text-muted); max-width: 800px; margin-bottom: 1rem; }
 
-        .about p {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin-bottom: 1rem;
-        }
-
-        /* Skills section */
+        /* ===== Skills ===== */
         .skills-list {
             display: grid;
             grid-template-columns: 1fr;
@@ -506,55 +320,18 @@
             margin: 0 auto;
             padding: 0 2rem;
         }
-
-        /* Skills grid: 3 columns on desktop, 2 on tablet, 1 on mobile */
         @media (min-width: 900px) {
-            .skills-list {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: auto auto;
-            }
+            .skills-list { grid-template-columns: repeat(3, 1fr); }
         }
-
         @media (min-width: 600px) and (max-width: 900px) {
-            .skills-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .skills-list { grid-template-columns: repeat(2, 1fr); }
         }
-
-        /* Currently learning list below the skill groups */
-        .currently-learning {
-            max-width: 1100px;
-            margin: 2rem auto 0;
-            padding: 0 2rem;
-        }
-
-        .currently-learning h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-main);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .currently-learning ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem 2.5rem;
-            padding-left: 1.25rem;
-            list-style: disc;
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
         .skill-group {
             padding: 1.5rem;
             border: 1px solid var(--divider);
             border-radius: 4px;
             background-color: var(--card-bg);
         }
-
         .skill-group h3 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.1rem;
@@ -564,74 +341,79 @@
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
+        .skill-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .skill-item:last-child { margin-bottom: 0; }
+.skill-icon { width: 24px; height: 24px; flex-shrink: 0; object-fit: contain; }
+        .skill-name { color: var(--text-main); font-size: 1rem; }
 
-        .skill-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+        /* ===== Monochrome icon colour system ===== */
+/* Light mode: icons are #111111 (black). Dark mode: icons are #FEFFF8 (white). */
+.skill-icon, .hobby-icon { filter: grayscale(100%) brightness(0); transition: filter 0.3s ease; }
+html.dark-mode .skill-icon, html.dark-mode .hobby-icon { filter: grayscale(100%) brightness(0) invert(1); }
 
-        .skill-item:last-child {
-            margin-bottom: 0;
-        }
+/* Desktop hover: original colour in both modes */
+@media (hover: hover) and (pointer: fine) {
+  html .skill-icon:hover, html .hobby-icon:hover { filter: none; }
+}
 
-        .skill-icon {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-        }
+/* Phones and touch screens: original colour in both modes */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  html .skill-icon, html .hobby-icon,
+  html.dark-mode .skill-icon, html.dark-mode .hobby-icon { filter: none; }
+  .chess-item .hobby-icon.chess-hover { display: none; }
+}
 
-        /* A missing icon shows its name in bold */
-        .icon-missing {
-            font-weight: 700;
-        }
+/* Chess king hover: show flaticon on desktop hover */
+@media (hover: hover) and (pointer: fine) {
+  .chess-item .hobby-icon.chess-hover { display: block; }
+  .chess-item .hobby-icon:first-child { display: none; }
+}
 
-        /* The VS Code file is blue; make it match the dark icons in light mode */
-        html:not(.dark-mode) .skill-icon[src="images/vscode.svg"] {
-            filter: brightness(0);
-        }
+/* Phones and touch screens: show base icon only */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .chess-item .hobby-icon.chess-hover { display: none; }
+}
 
-        /* Dark mode: monochrome icons become white */
-        html.dark-mode img.mono-icon {
-            filter: brightness(0) invert(1);
-        }
+/* Brand masks: colour from background-color only, no filters */
+.brand { background-color: var(--text-main); }
+@media (hover: hover) and (pointer: fine) {
+  .brand-claude:hover { background-color: #D97757; }
+  .brand-chatgpt:hover { background-color: #10A37F; }
+  .brand-gmail:hover { background-color: #EA4335; }
+  .brand-linkedin:hover { background-color: #0A66C2; }
+  .brand-instagram:hover { background-color: #E4405F; }
+  .brand-github:hover { background-color: var(--accent); }
+}
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .brand-claude { background-color: #D97757; }
+  .brand-chatgpt { background-color: #10A37F; }
+  .brand-gmail { background-color: #EA4335; }
+  .brand-linkedin { background-color: #0A66C2; }
+  .brand-instagram { background-color: #E4405F; }
+  .brand-github { background-color: var(--text-main); }
+}
 
-        /* These six files are single-colour artwork, so they also need inverting
-           in dark mode to stay visible; their classes are unchanged */
-        html.dark-mode .skill-icon[src="images/python.svg"],
-        html.dark-mode .skill-icon[src="images/javascript.svg"],
-        html.dark-mode .skill-icon[src="images/html5.svg"],
-        html.dark-mode .skill-icon[src="images/css.svg"],
-        html.dark-mode .skill-icon[src="images/vscode.svg"],
-        html.dark-mode .hobby-icon[src="images/video-editing.png"] {
-            filter: brightness(0) invert(1);
-        }
+/* Keep .brand mask properties and --logo rules */
+.brand { display: inline-block; width: 24px; height: 24px; flex-shrink: 0; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; transition: background-color 0.3s ease; }
+.brand-claude { --logo: url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/anthropic.svg'); }
+.brand-chatgpt { --logo: url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg'); }
+.brand-gmail { --logo: url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/gmail.svg'); }
+.brand-linkedin { --logo: url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg'); }
+.brand-github { --logo: url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg'); }
+.brand-instagram { --logo: url('https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/instagram.svg'); }
 
-        /* Fallback: a broken icon is hidden, its skill name stays visible */
-
-        .skill-name {
-            color: var(--text-main);
-            font-size: 1rem;
-        }
-
-        /* Projects section - grid layout */
+        /* ===== Projects ===== */
         .projects-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 2rem;
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-
         @media (max-width: 768px) {
-            .projects-container {
-                grid-template-columns: 1fr;
-            }
+            .projects-container { grid-template-columns: 1fr; }
         }
-
-        /* Project card */
         .project-card {
             background-color: var(--card-bg);
             border: 1px solid var(--divider);
@@ -639,21 +421,8 @@
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        html.dark-mode .project-card:hover {
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-        }
-
-        .project-card-header {
-            padding: 2rem;
-            border-bottom: 1px solid var(--divider);
-        }
-
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); }
+        .project-card-header { padding: 2rem; border-bottom: 1px solid var(--divider); }
         .project-title {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.5rem;
@@ -663,13 +432,7 @@
             margin-bottom: 1rem;
             line-height: 1.2;
         }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
         .tech-pill {
             background-color: var(--divider);
             color: var(--text-main);
@@ -680,8 +443,6 @@
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
-
-        /* Project preview (16:9 aspect ratio) */
         .project-preview {
             position: relative;
             width: 100%;
@@ -689,46 +450,22 @@
             background-color: var(--bg-secondary);
             border: 1px solid var(--divider);
             border-radius: 8px;
-            margin: 0;
             overflow: hidden;
         }
-
-        .project-preview img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Project preview fallback: project name in place of a missing image */
+        .project-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .project-preview-fallback {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
             padding: 1.5rem;
             text-align: center;
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.5rem;
-            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--text-muted);
         }
-
-        .project-card-content {
-            padding: 2rem;
-        }
-
-        /* Project card buttons */
-        .project-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 0;
-        }
-
+        .project-preview-wrap { padding: 2rem; }
+        .project-card-content { padding: 0 2rem 2rem; }
+        .project-buttons { display: flex; gap: 1rem; }
         .project-btn {
             flex: 1;
             padding: 0.7rem 1rem;
@@ -739,43 +476,16 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             transition: all 0.3s ease;
-            border: 1px solid transparent;
-            cursor: pointer;
-            display: inline-block;
+            border: 1.5px solid transparent;
             text-align: center;
-            font-family: 'DM Sans', sans-serif;
         }
+        .project-btn-primary { background-color: var(--accent); color: white; }
+        .project-btn-primary:hover { transform: translateY(-2px); }
+        .project-btn-outline { color: var(--text-main); border-color: var(--text-main); }
+        .project-btn-outline:hover { background-color: var(--text-main); color: var(--bg-primary); }
 
-        .project-btn-primary {
-            background-color: var(--accent);
-            color: white;
-        }
-
-        .project-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 100, 50, 0.3);
-        }
-
-        .project-btn-outline {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1.5px solid var(--text-main);
-        }
-
-        .project-btn-outline:hover {
-            background-color: var(--text-main);
-            color: var(--bg-primary);
-        }
-
-        /* Education section */
-        .education-list {
-            display: flex;
-            flex-direction: column;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
+        /* ===== Education ===== */
+        .education-list { display: flex; flex-direction: column; max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
         .education-item {
             display: grid;
             grid-template-columns: 150px 1fr;
@@ -784,11 +494,7 @@
             border-bottom: 1px solid var(--divider);
             align-items: start;
         }
-
-        .education-item:last-child {
-            border-bottom: none;
-        }
-
+        .education-item:last-child { border-bottom: none; }
         .education-years {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 0.9rem;
@@ -797,27 +503,13 @@
             color: var(--accent);
             font-weight: 700;
         }
-
-        .education-content h3 {
-            font-size: 1.1rem;
-            color: var(--text-main);
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-        }
-
-        .education-content p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
+        .education-content h3 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.25rem; font-weight: 600; }
+        .education-content p { color: var(--text-muted); font-size: 0.95rem; }
         @media (max-width: 768px) {
-            .education-item {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
+            .education-item { grid-template-columns: 1fr; gap: 0.5rem; }
         }
 
-        /* Languages and Hobbies side by side */
+        /* ===== Languages and Hobbies ===== */
         .side-by-side {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -826,69 +518,21 @@
             margin: 0 auto;
             padding: 3.5rem 2rem;
         }
-
-        .side-by-side > section {
-            padding: 0;
-        }
-
-        .side-by-side h2 {
-            max-width: none;
-            padding: 0;
-            margin: 0 0 2rem 0;
-        }
-
-        .side-by-side h2::after {
-            display: none;
-        }
-
+        .side-by-side > section { padding: 0; }
+        .side-by-side h2 { max-width: none; padding: 0; margin: 0 0 2rem 0; }
+        .side-by-side h2::after { display: none; }
         @media (max-width: 900px) {
-            .side-by-side {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 3.5rem 2rem;
-            }
+            .side-by-side { grid-template-columns: 1fr; gap: 2rem; }
         }
+        .languages-list { display: flex; flex-wrap: wrap; gap: 2rem; }
+        .language-item { color: var(--text-muted); font-size: 1rem; }
+        .hobbies-list { display: flex; flex-wrap: wrap; gap: 3rem; }
+.hobby-item { width: 96px; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.hobby-icon-wrap { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.hobby-icon { width: 32px; height: 32px; object-fit: contain; }
+.hobby-label { color: var(--text-muted); font-size: 0.95rem; text-align: center; }
 
-        .languages-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .language-item {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* Hobbies section */
-        .hobbies-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
-            justify-content: flex-start;
-        }
-
-        .hobby-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .hobby-icon {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-
-        .hobby-label {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            text-align: center;
-        }
-
-        /* Contact section - icons only */
+        /* ===== Contact ===== */
         .contact-line {
             max-width: 1100px;
             margin: 0 auto 2rem;
@@ -896,41 +540,33 @@
             color: var(--text-muted);
             font-size: 1.05rem;
         }
-
         .contact-info {
             display: flex;
             gap: 2.5rem;
-            justify-content: flex-start;
-            align-items: center;
             flex-wrap: wrap;
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-
         .contact-icon-link {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             gap: 0.5rem;
-            width: auto;
-            height: auto;
-            flex-shrink: 0;
             text-decoration: none;
         }
-
-        .contact-icon-box {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
+        .contact-icon-box { position: relative; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
+.contact-icon-box .mono-logo, .contact-icon-box .color-logo { position: absolute; inset: 0; width: 32px; height: 32px; }
+.contact-icon-box .color-logo { display: none; object-fit: contain; }
+@media (hover: hover) and (pointer: fine) {
+  .contact-icon-link:hover .mono-logo { display: none; }
+  .contact-icon-link:hover .color-logo { display: block; }
+}
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .contact-icon-box .mono-logo { display: none; }
+  .contact-icon-box .color-logo { display: block; }
+}
+html.dark-mode .github-logo { filter: invert(1); }
         .contact-label {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 0.95rem;
@@ -939,145 +575,43 @@
             color: var(--text-muted);
         }
 
-        .contact-icon-outline {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-icon-outline img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-        }
-
-        .contact-icon-color {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 32px;
-            width: auto;
-            max-width: 48px;
-            object-fit: contain;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-icon-link:hover .contact-icon-color {
-            opacity: 1;
-        }
-
-        .contact-icon-link:hover .contact-icon-box:has(.contact-icon-color:not([style*="display: none"])) .contact-icon-outline {
-            opacity: 0;
-        }
-
-        html.dark-mode .github-color {
-            content: url('images/github-color-dark.png');
-        }
-
-        .contact-icon-link svg {
-            width: 32px;
-            height: 32px;
-            color: var(--text-main);
-            stroke: var(--text-main);
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .contact-icon-link svg.fill-icon {
-            fill: var(--text-main);
-            stroke: none;
-        }
-
-        .contact-icon-link:hover .contact-icon-box {
-            transform: translateY(-2px);
-        }
-
-        .contact-icon-link:hover svg {
-            stroke: var(--accent);
-            color: var(--accent);
-        }
-
-        .contact-icon-link:hover svg.fill-icon {
-            fill: var(--accent);
-        }
-
-        /* Touch screens have no hover, so keep the outline icon only */
-        @media (hover: none), (pointer: coarse) {
-            .contact-icon-link .contact-icon-color {
-                display: none !important;
-            }
-
-            .contact-icon-link:hover .contact-icon-outline {
-                opacity: 1 !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .contact-info {
-                justify-content: center;
-            }
-        }
-
-        /* Footer */
+        /* ===== Footer ===== */
         footer {
             background-color: var(--bg-primary);
             padding: 2rem;
             text-align: center;
             border-top: 1px solid var(--divider);
         }
+        footer p { color: var(--text-muted); font-size: 0.9rem; max-width: 1100px; margin: 0 auto; }
 
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* Animations */
+        /* ===== Animations ===== */
         @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
-        /* Hero grid canvas: sits behind hero content */
-        .hero-grid-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            display: block;
-        }
+        html.dark-mode .github-skill { filter: invert(1); }
+        html.dark-mode .github-skill:hover { filter: invert(1); }
+.skill-icon, .hobby-icon { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; }
+.hobby-icon { width: 32px; height: 32px; }
+.skill-icon.mono-icon, .hobby-icon.mono-icon { filter: brightness(0); }
+html.dark-mode .skill-icon.mono-icon, html.dark-mode .hobby-icon.mono-icon { filter: brightness(0) invert(1); }
+.hobby-icon-wrapper { position: relative; display: inline-block; width: 32px; height: 32px; }
+.hobby-icon-wrapper .hobby-icon { position: absolute; inset: 0; width: 32px; height: 32px; object-fit: contain; }
+@media (hover: hover) and (pointer: fine) {
+  html.dark-mode .hobby-icon:hover, html .hobby-icon:hover { filter: none; }
     </style>
 </head>
+
 <body>
+
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#home" class="nav-logo">Sathar Portfolio</a>
+            <a href="#home" class="nav-logo">Shek Portfolio</a>
             <div class="nav-right">
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home">Home</a></li>
@@ -1087,7 +621,6 @@
                     <li><a href="#education">Education</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <!-- Theme toggle -->
                 <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">
                     <svg class="icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -1104,14 +637,13 @@
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
                 </button>
+                <button class="menu-button" id="menuBtn" aria-label="Open menu">☰</button>
             </div>
-            <button class="menu-button" id="menuBtn">☰</button>
         </div>
     </nav>
 
-    <!-- Hero section -->
+    <!-- Hero -->
     <section class="hero" id="home">
-        <!-- Interactive grid background (canvas) -->
         <canvas id="heroGrid" class="hero-grid-canvas" aria-hidden="true"></canvas>
 
         <h1>
@@ -1134,7 +666,7 @@
         </div>
     </section>
 
-    <!-- About section -->
+    <!-- About -->
     <section id="about" class="scroll-animate">
         <h2>About</h2>
         <div class="about">
@@ -1143,111 +675,88 @@
         </div>
     </section>
 
-    <!-- Skills section -->
+    <!-- Skills -->
     <section id="skills" class="scroll-animate">
         <h2>Skills</h2>
         <div class="skills-list">
-            <!-- Row 1: Programming, Front-end, Database -->
-            <!-- Programming -->
             <div class="skill-group">
                 <h3>Programming</h3>
                 <div class="skill-item">
-                    <img src="images/java.svg" alt="Java icon" class="skill-icon mono-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java icon">
                     <span class="skill-name">Java</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/python.svg" alt="Python icon" class="skill-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python icon">
                     <span class="skill-name">Python</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/javascript.svg" alt="JavaScript icon" class="skill-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript icon">
                     <span class="skill-name">JavaScript</span>
                 </div>
             </div>
 
-            <!-- Front-end -->
             <div class="skill-group">
                 <h3>Front-end</h3>
                 <div class="skill-item">
-                    <img src="images/html5.svg" alt="HTML5 icon" class="skill-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 icon">
                     <span class="skill-name">HTML5</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/css.svg" alt="CSS3 icon" class="skill-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 icon">
                     <span class="skill-name">CSS3</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/tailwindcss.svg" alt="Tailwind CSS icon" class="skill-icon mono-icon">
+                    <img class="skill-icon mono-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS icon">
                     <span class="skill-name">Tailwind CSS</span>
                 </div>
             </div>
 
-            <!-- Database -->
             <div class="skill-group">
                 <h3>Database</h3>
                 <div class="skill-item">
-                    <img src="images/mysql.svg" alt="MySQL icon" class="skill-icon mono-icon">
+                    <img class="skill-icon mono-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL icon">
                     <span class="skill-name">MySQL and DBMS</span>
                 </div>
             </div>
 
-            <!-- Row 2: Tools, AI Tools -->
-            <!-- Tools -->
             <div class="skill-group">
                 <h3>Tools</h3>
                 <div class="skill-item">
-                    <img src="images/vscode.svg" alt="VS Code icon" class="skill-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code icon">
                     <span class="skill-name">VS Code</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/git.svg" alt="Git icon" class="skill-icon mono-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git icon">
                     <span class="skill-name">Git</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/github.svg" alt="GitHub icon" class="skill-icon mono-icon">
+                    <img class="skill-icon github-skill" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub icon">
                     <span class="skill-name">GitHub</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/npm.svg" alt="npm icon" class="skill-icon mono-icon">
+                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" alt="npm icon">
                     <span class="skill-name">npm</span>
                 </div>
             </div>
 
-            <!-- AI Tools -->
             <div class="skill-group">
                 <h3>AI Tools</h3>
                 <div class="skill-item">
-                    <img src="images/claude.svg" alt="Claude icon" class="skill-icon mono-icon">
+                    <span class="brand brand-claude" role="img" aria-label="Claude"></span>
                     <span class="skill-name">Claude</span>
                 </div>
                 <div class="skill-item">
-                    <img src="images/chatgpt.svg" alt="ChatGPT icon" class="skill-icon mono-icon">
+                    <span class="brand brand-chatgpt" role="img" aria-label="ChatGPT"></span>
                     <span class="skill-name">ChatGPT</span>
                 </div>
             </div>
         </div>
-
-        <div class="currently-learning">
-            <h3>Currently Learning</h3>
-            <ul>
-                <li>Core Java</li>
-                <li>Advanced Java</li>
-                <li>Spring Boot</li>
-                <li>React</li>
-                <li>JDBC</li>
-                <li>Hibernate</li>
-                <li>MySQL</li>
-                <li>AI Tools</li>
-            </ul>
-        </div>
     </section>
 
-    <!-- Projects section -->
+    <!-- Projects -->
     <section id="projects" class="scroll-animate">
         <h2>Projects</h2>
-
         <div class="projects-container">
-            <!-- Project 1 -->
             <div class="project-card">
                 <div class="project-card-header">
                     <h3 class="project-title">E-Commerce Web Application</h3>
@@ -1260,22 +769,19 @@
                     </div>
                     <p>A responsive e-commerce front end with product browsing, a shopping cart, checkout, order management, and order tracking. Built with React Router and React hooks.</p>
                 </div>
-
-                <div style="padding: 2rem;">
+                <div class="project-preview-wrap">
                     <div class="project-preview">
                         <img src="images/ecommerce-preview.png" alt="E-Commerce Web Application preview">
                     </div>
                 </div>
-
                 <div class="project-card-content">
                     <div class="project-buttons">
-                        <a href="https://satharuzama.github.io/ecommerce/" target="_blank" class="project-btn project-btn-primary">Open Live Site</a>
-                        <a href="https://github.com/Satharuzama/" target="_blank" class="project-btn project-btn-outline">Source Code</a>
+                        <a href="https://satharuzama.github.io/ecommerce/" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-primary">Open Live Site</a>
+                        <a href="https://github.com/Satharuzama/" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-outline">Source Code</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 2 -->
             <div class="project-card">
                 <div class="project-card-header">
                     <h3 class="project-title">To-Do List Application</h3>
@@ -1287,24 +793,22 @@
                     </div>
                     <p>A task manager to add, mark, and delete tasks, with keyboard support. Built with JavaScript DOM manipulation and event handling.</p>
                 </div>
-
-                <div style="padding: 2rem;">
+                <div class="project-preview-wrap">
                     <div class="project-preview">
                         <img src="images/todo-preview.png" alt="To-Do List Application preview">
                     </div>
                 </div>
-
                 <div class="project-card-content">
                     <div class="project-buttons">
-                        <a href="https://satharuzama.github.io/TODO_LIST/" target="_blank" class="project-btn project-btn-primary">Open Live Site</a>
-                        <a href="https://github.com/Satharuzama/" target="_blank" class="project-btn project-btn-outline">Source Code</a>
+                        <a href="https://satharuzama.github.io/TODO_LIST/" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-primary">Open Live Site</a>
+                        <a href="https://github.com/Satharuzama/" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-outline">Source Code</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Education section -->
+    <!-- Education -->
     <section id="education" class="scroll-animate">
         <h2>Education & Training</h2>
         <div class="education-list">
@@ -1315,7 +819,6 @@
                     <p>TAP Academy, Bengaluru</p>
                 </div>
             </div>
-
             <div class="education-item">
                 <div class="education-years">2023 — 2026</div>
                 <div class="education-content">
@@ -1323,7 +826,6 @@
                     <p>SDHR Degree College</p>
                 </div>
             </div>
-
             <div class="education-item">
                 <div class="education-years">2021 — 2023</div>
                 <div class="education-content">
@@ -1331,7 +833,6 @@
                     <p>Sri Chaitanya Junior College</p>
                 </div>
             </div>
-
             <div class="education-item">
                 <div class="education-years">2021</div>
                 <div class="education-content">
@@ -1342,9 +843,8 @@
         </div>
     </section>
 
-    <!-- Languages and Hobbies, side by side -->
+    <!-- Languages and Hobbies -->
     <div class="side-by-side">
-        <!-- Languages section -->
         <section id="languages" class="scroll-animate">
             <h2>Languages</h2>
             <div class="languages-list">
@@ -1355,207 +855,140 @@
             </div>
         </section>
 
-        <!-- Hobbies section -->
         <section id="hobbies" class="scroll-animate">
             <h2>Hobbies</h2>
             <div class="hobbies-list">
-                <div class="hobby-item">
-                    <img src="images/chess.png" alt="Chess icon" class="hobby-icon mono-icon">
+                <div class="hobby-item chess-item">
+                    <span class="hobby-icon-wrapper">
+                        <img class="hobby-icon mono-icon" src="https://api.iconify.design/mdi/chess-king.svg" alt="Chess king icon">
+                        <img class="hobby-icon chess-hover" src="https://cdn-icons-png.flaticon.com/512/657/657896.png" alt="Chess king icon hover">
+                    </span>
                     <div class="hobby-label">Chess</div>
                 </div>
                 <div class="hobby-item">
-                    <img src="images/video-editing.png" alt="Video Editing icon" class="hobby-icon">
+                    <div class="hobby-icon-wrap">
+                        <img class="hobby-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ac.svg" alt="Video Editing icon">
+                    </div>
                     <div class="hobby-label">Video Editing</div>
                 </div>
                 <div class="hobby-item">
-                    <img src="images/cubing.png" alt="Cubing icon" class="hobby-icon mono-icon">
+                    <div class="hobby-icon-wrap">
+                        <img class="hobby-icon" src="https://cdn-icons-png.flaticon.com/512/16507/16507149.png" alt="Cubing icon">
+                    </div>
                     <div class="hobby-label">Cubing</div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Contact section -->
+    <!-- Contact -->
     <section id="contact" class="scroll-animate">
         <h2>Get in Touch</h2>
-        <p class="contact-line">Open to Java Full Stack Developer roles. Let’s connect.</p>
+        <p class="contact-line">Open to Java Full Stack Developer roles. Let's connect.</p>
         <div class="contact-info">
-            <a href="mailto:shakesatharuzama@gmail.com" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Email">
+            <a href="mailto:shakesatharuzama@gmail.com" class="contact-icon-link" aria-label="Email">
                 <span class="contact-icon-box">
-                    <span class="contact-icon-outline">
-                        <svg viewBox="0 0 24 24"><path fill="none" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none"/></svg>
-                    </span>
-                    <img src="images/gmail-color.png" alt="Gmail logo" class="contact-icon-color">
+                    <span class="brand brand-gmail mono-logo" role="img" aria-label="Gmail"></span>
+                    <img class="color-logo" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail logo">
                 </span>
                 <span class="contact-label">Email</span>
             </a>
             <a href="https://www.linkedin.com/in/shek-sataruzama/" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="LinkedIn profile">
                 <span class="contact-icon-box">
-                    <span class="contact-icon-outline">
-                        <img src="images/linkedin.svg" alt="LinkedIn logo" class="contact-outline-img mono-icon">
-                    </span>
-                    <img src="images/linkedin-color.png" alt="LinkedIn logo" class="contact-icon-color">
+                    <span class="brand brand-linkedin mono-logo" role="img" aria-label="LinkedIn"></span>
+                    <img class="color-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn logo">
                 </span>
                 <span class="contact-label">LinkedIn</span>
             </a>
             <a href="https://github.com/Satharuzama/" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="GitHub profile">
                 <span class="contact-icon-box">
-                    <span class="contact-icon-outline">
-                        <img src="images/github.svg" alt="GitHub logo" class="contact-outline-img mono-icon">
-                    </span>
-                    <img src="images/github-color.png" alt="GitHub logo" class="contact-icon-color github-color">
+                    <span class="brand brand-github mono-logo" role="img" aria-label="GitHub"></span>
+                    <img class="color-logo github-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub logo">
                 </span>
                 <span class="contact-label">GitHub</span>
             </a>
             <a href="https://www.instagram.com/satharuzama/" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Instagram profile">
                 <span class="contact-icon-box">
-                    <span class="contact-icon-outline">
-                        <img src="images/instagram.svg" alt="Instagram logo" class="contact-outline-img mono-icon">
-                    </span>
-                    <img src="images/instagram-color.png" alt="Instagram logo" class="contact-icon-color">
+                    <span class="brand brand-instagram mono-logo" role="img" aria-label="Instagram"></span>
+                    <img class="color-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram logo">
                 </span>
                 <span class="contact-label">Instagram</span>
             </a>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Shek Sataruzama. All rights reserved.</p>
     </footer>
 
-    <!-- Cursor trail canvas -->
     <canvas id="trailCanvas" class="trail-canvas" aria-hidden="true"></canvas>
-
-    <!-- Audio element for pronunciation -->
-    <audio id="pronunciationAudio" style="display: none;"></audio>
+    <audio id="pronunciationAudio" preload="none"></audio>
 
     <script>
         const html = document.documentElement;
 
-        // Theme toggle
+        /* Theme: remember the choice, otherwise follow the system */
         const themeToggle = document.getElementById('themeToggle');
-
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const savedMode = localStorage.getItem('darkMode');
-
-        if (savedMode !== null) {
-            if (savedMode === 'true') {
-                html.classList.add('dark-mode');
-                themeToggle.setAttribute('aria-label', 'Switch to light mode');
-            }
-        } else if (prefersDark) {
+        if (savedMode === 'true' || (savedMode === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark-mode');
-            themeToggle.setAttribute('aria-label', 'Switch to light mode');
         }
-
+        function syncThemeLabel() {
+            themeToggle.setAttribute('aria-label', html.classList.contains('dark-mode') ? 'Switch to light mode' : 'Switch to dark mode');
+        }
+        syncThemeLabel();
         themeToggle.addEventListener('click', () => {
             html.classList.toggle('dark-mode');
-            const isNowDarkMode = html.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', isNowDarkMode);
-            themeToggle.setAttribute('aria-label', isNowDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+            localStorage.setItem('darkMode', html.classList.contains('dark-mode'));
+            syncThemeLabel();
         });
 
-        themeToggle.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                themeToggle.click();
-            }
-        });
-
-        // Mobile menu
+        /* Mobile menu */
         const menuBtn = document.getElementById('menuBtn');
         const navLinks = document.getElementById('navLinks');
+        menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+        navLinks.addEventListener('click', () => navLinks.classList.remove('active'));
 
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        navLinks.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-        });
-
-        // Speaker button: play the recorded name
+        /* Name pronunciation: plays images/sathar.mp3 */
         const speakButton = document.getElementById('speakButton');
-        const audioElement = document.getElementById('pronunciationAudio');
+        const audio = document.getElementById('pronunciationAudio');
         const speakError = document.getElementById('speakError');
-
-        function showSoundError() {
+        audio.addEventListener('error', () => {
             speakError.textContent = 'Sound file not found. Add images/sathar.mp3.';
-        }
-
-        audioElement.addEventListener('error', showSoundError);
-
+        });
         speakButton.addEventListener('click', () => {
             speakError.textContent = '';
-
-            // Restart the recording from the beginning
-            audioElement.pause();
-            audioElement.currentTime = 0;
-            audioElement.src = 'images/sathar.mp3';
-            audioElement.load();
-
-            const playPromise = audioElement.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Report a missing/broken file, not a blocked autoplay attempt
-                    if (audioElement.error) showSoundError();
-                });
-            }
+            audio.pause();
+            audio.currentTime = 0;
+            audio.src = 'images/sathar.mp3';
+            audio.play().catch(() => {
+                if (audio.error) speakError.textContent = 'Sound file not found. Add images/sathar.mp3.';
+            });
         });
 
-        speakButton.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                speakButton.click();
-            }
-        });
-
-        // Icon fallback: a missing icon shows the skill name in bold
+        /* Missing icon: hide the image and show its name in bold */
         document.querySelectorAll('.skill-icon, .hobby-icon').forEach(img => {
-            const showName = () => {
+            const markMissing = () => {
                 img.style.display = 'none';
                 const name = img.parentElement.querySelector('.skill-name, .hobby-label');
                 if (name) name.classList.add('icon-missing');
             };
-            img.addEventListener('error', showName);
-            if (img.complete && img.naturalWidth === 0) showName();
+            img.addEventListener('error', markMissing);
         });
 
-        // Contact image fallback: show the platform name if its icon is missing
-        document.querySelectorAll('.contact-icon-link img').forEach(img => {
-            const showName = () => {
-                img.style.display = 'none';
-                const fallback = img.parentElement.querySelector('.contact-icon-fallback');
-                if (fallback) fallback.hidden = false;
-            };
-            img.addEventListener('error', showName);
-            if (img.complete && img.naturalWidth === 0) showName();
-        });
-
-        // Project preview fallback: show the project name if its image is missing
+        /* Missing project image: show the project name instead */
         document.querySelectorAll('.project-preview img').forEach(img => {
-            const showName = () => {
-                if (img.dataset.failed) return;
-                img.dataset.failed = 'true';
+            img.addEventListener('error', () => {
                 img.style.display = 'none';
-                const card = img.closest('.project-card');
-                const title = card && card.querySelector('.project-title');
+                const title = img.closest('.project-card').querySelector('.project-title').textContent;
                 const label = document.createElement('span');
                 label.className = 'project-preview-fallback';
-                label.textContent = title ? title.textContent : img.alt;
+                label.textContent = title;
                 img.parentElement.appendChild(label);
-            };
-            img.addEventListener('error', showName);
-            if (img.complete && img.naturalWidth === 0) showName();
+            });
         });
 
-        // Scroll animations with IntersectionObserver
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
+        /* Scroll reveal */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1563,50 +996,30 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+        document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
 
-        document.querySelectorAll('.scroll-animate').forEach(element => {
-            observer.observe(element);
-        });
-
-        // Smooth scrolling for anchor links
+        /* Smooth scroll for in-page links */
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
-        // Cursor and finger trail: a thin orange line that follows the pointer
+        /* ===== Trail cursor ===== */
         (function cursorTrail() {
             const canvas = document.getElementById('trailCanvas');
-            if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            if (!ctx) return;
+            if (!ctx) { canvas.style.display = 'none'; return; }
 
-            // Draw nothing when reduced motion is preferred
-            const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-            const touchPointer = window.matchMedia('(hover: none) and (pointer: coarse)');
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-            if ((!finePointer.matches && !touchPointer.matches) || reduceMotion.matches) return;
-            const touchMode = touchPointer.matches;
-
-            const TRAIL_LIFE = 400;   // ms a point lives before it has faded out
-            const EASE = 0.3;         // slight smooth delay behind the pointer
-            const points = [];        // { x, y, time }
-            const pointer = { x: 0, y: 0 };
-            const head = { x: 0, y: 0 };
-            let started = false;
-            let lastMove = 0;
+            const LIFE = 400;
+            const MAX_POINTS = 90;
+            const MAX_DISTANCE = 150;
+            const points = [];
             let rafId = 0;
 
-            // Keep the canvas sharp on high-density screens
             function resize() {
                 const dpr = Math.min(window.devicePixelRatio || 1, 2);
                 canvas.width = Math.round(window.innerWidth * dpr);
@@ -1618,183 +1031,105 @@
             resize();
             window.addEventListener('resize', resize);
 
-            function wake() {
+            function add(x, y, isInside) {
+                // Only add points if pointer is inside the window
+                if (!isInside) return;
+                points.push({ x: x, y: y, time: performance.now() });
+                if (points.length > MAX_POINTS) points.shift();
                 if (!rafId) rafId = requestAnimationFrame(frame);
             }
 
-            // Mouse and trackpad follow pointermove; fingers are handled below
-            function track(e) {
-                if (touchMode && e.pointerType !== 'touch') return;
-                pointer.x = e.clientX;
-                pointer.y = e.clientY;
-                lastMove = performance.now();
-                if (!started) {
-                    started = true;
-                    head.x = pointer.x;
-                    head.y = pointer.y;
-                }
-                wake();
+            function isPointerInWindow() {
+                return window.innerX >= 0 && window.innerY >= 0 && window.innerX <= window.innerWidth && window.innerY <= window.innerHeight;
             }
-
-            window.addEventListener('pointermove', track, { passive: true });
-
-            // Fingers: start a fresh trail where the finger touches the screen
-            window.addEventListener('pointerdown', (e) => {
-                if (!touchMode || e.pointerType !== 'touch') return;
-                points.length = 0;
-                pointer.x = e.clientX;
-                pointer.y = e.clientY;
-                head.x = pointer.x;
-                head.y = pointer.y;
-                started = true;
-                lastMove = performance.now();
-                points.push({ x: head.x, y: head.y, time: lastMove });
-                wake();
-            }, { passive: true });
-
-            // Finger lifted or touch cancelled: stop adding points; the trail fades
-            function stopTouch(e) {
-                if (!touchMode || e.pointerType !== 'touch') return;
-                started = false;
-                lastMove = 0;
-            }
-            window.addEventListener('pointerup', stopTouch, { passive: true });
-
-            // Touch events keep the trail alive when a scroll gesture ends the
-            // pointer stream (the browser sends pointercancel but touchmove continues)
-            function touchPosition(e) {
-                const touch = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]);
-                return touch ? { x: touch.clientX, y: touch.clientY } : null;
-            }
-
-            window.addEventListener('touchstart', (e) => {
-                if (!touchMode) return;
-                const touch = touchPosition(e);
-                if (touch) track({ pointerType: 'touch', clientX: touch.x, clientY: touch.y });
-            }, { passive: true });
-
-            window.addEventListener('touchmove', (e) => {
-                if (!touchMode) return;
-                const touch = touchPosition(e);
-                if (touch) track({ pointerType: 'touch', clientX: touch.x, clientY: touch.y });
-            }, { passive: true });
-
-            function stopTouchEvent() {
-                if (!touchMode) return;
-                started = false;
-                lastMove = 0;
-            }
-            window.addEventListener('touchend', stopTouchEvent, { passive: true });
-            window.addEventListener('touchcancel', stopTouchEvent, { passive: true });
 
             function frame(now) {
-                // Forget points older than the fade time
-                while (points.length && now - points[0].time > TRAIL_LIFE) points.shift();
-
-                // The head eases toward the pointer for a slight smooth delay
-                let moving = false;
-                if (started) {
-                    if (now - lastMove > 120) {
-                        // Pointer stopped: settle the head without extending the trail
-                        head.x = pointer.x;
-                        head.y = pointer.y;
-                    } else {
-                        const dx = pointer.x - head.x;
-                        const dy = pointer.y - head.y;
-                        if (Math.hypot(dx, dy) > 0.2) {
-                            head.x += dx * EASE;
-                            head.y += dy * EASE;
-                            moving = true;
-                            const last = points[points.length - 1];
-                            if (!last || Math.hypot(head.x - last.x, head.y - last.y) > 1.5) {
-                                points.push({ x: head.x, y: head.y, time: now });
-                                while (points.length > 90) points.shift();
-                            }
-                        }
-                    }
-                }
-
-                // Clear the frame, then draw oldest to newest
+                // Clear canvas every frame
                 ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+                // Remove old points (outside LIFE)
+                while (points.length && now - points[0].time > LIFE) points.shift();
+
+                // Draw connect-the-dots with max 150px distance
                 ctx.lineCap = 'round';
                 ctx.lineJoin = 'round';
 
-                // Soft glow behind the line
-                for (let i = 1; i < points.length; i++) {
-                    const fade = 1 - (now - points[i].time) / TRAIL_LIFE;
-                    if (fade <= 0) continue;
-                    ctx.strokeStyle = 'rgba(255, 100, 50, 0.25)';
-                    ctx.globalAlpha = fade;
-                    ctx.lineWidth = 8;
-                    ctx.beginPath();
-                    ctx.moveTo(points[i - 1].x, points[i - 1].y);
-                    ctx.lineTo(points[i].x, points[i].y);
-                    ctx.stroke();
-                }
-
-                // Main 2 px orange line
-                for (let i = 1; i < points.length; i++) {
-                    const fade = 1 - (now - points[i].time) / TRAIL_LIFE;
-                    if (fade <= 0) continue;
+                // Only draw connections if we have enough points
+                if (points.length > 1) {
+                    // Determine which points to connect based on distance
                     ctx.strokeStyle = 'rgba(255, 100, 50, 0.9)';
-                    ctx.globalAlpha = fade;
+                    ctx.globalAlpha = 1;
                     ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.moveTo(points[i - 1].x, points[i - 1].y);
-                    ctx.lineTo(points[i].x, points[i].y);
-                    ctx.stroke();
-                }
-                ctx.globalAlpha = 1;
 
-                // Stop the loop once everything has faded
-                if (!moving && points.length === 0) {
-                    rafId = 0;
-                    return;
+                    for (let i = 1; i < points.length; i++) {
+                        const dx = points[i].x - points[i-1].x;
+                        const dy = points[i].y - points[i-1].y;
+                        const dist = Math.hypot(dx, dy);
+                        if (dist > MAX_DISTANCE) continue;
+                        ctx.globalAlpha = 1 - (dist / MAX_DISTANCE);
+                        ctx.lineWidth = 2 * (1 - (dist / MAX_DISTANCE));
+                        ctx.beginPath();
+                        ctx.moveTo(points[i-1].x, points[i-1].y);
+                        ctx.lineTo(points[i].x, points[i].y);
+                        ctx.stroke();
+                    }
                 }
-                rafId = requestAnimationFrame(frame);
+
+                rafId = points.length ? requestAnimationFrame(frame) : 0;
             }
+
+            // Pointer events - only inside the hero window for trail, but track document-wide
+            const hero = document.getElementById('home');
+            function getPointerEventCoords(e) {
+                const clientX = e.clientX;
+                const clientY = e.clientY;
+                const inside = clientX >= 0 && clientY >= 0 && clientX <= window.innerWidth && clientY <= window.innerHeight;
+                add(clientX, clientY, inside);
+            }
+
+            window.addEventListener('pointermove', getPointerEventCoords, { passive: true });
+            window.addEventListener('pointerdown', getPointerEventCoords, { passive: true });
+
+            // Also track inside the hero area specifically
+            hero.addEventListener('pointermove', e => {
+                const rect = hero.getBoundingClientRect();
+                const p = { x: e.clientX, y: e.clientY, inside: e.clientX >= rect.left && e.clientY >= rect.top && e.clientX <= rect.right && e.clientY <= rect.bottom };
+                add(e.clientX, e.clientY, p.inside);
+            }, { passive: true });
+            hero.addEventListener('pointerdown', e => {
+                const rect = hero.getBoundingClientRect();
+                const p = { x: e.clientX, y: e.clientY, inside: e.clientX >= rect.left && e.clientY >= rect.top && e.clientX <= rect.right && e.clientY <= rect.bottom };
+                if (p.inside) add(e.clientX, e.clientY, true);
+            });
+
+            // new MutationObserver(() => {}); // removed per fix
+
         })();
 
-        // Hero grid: subtle interactive grid drawn behind the hero content only
+        /* Hero grid: orange cells light up near the pointer or finger */
         (function heroGrid() {
             const hero = document.getElementById('home');
             const canvas = document.getElementById('heroGrid');
-            if (!hero || !canvas) return;
-
             const ctx = canvas.getContext('2d');
-            if (!ctx) {
-                canvas.style.display = 'none';
-                return;
-            }
+            if (!ctx) { canvas.style.display = 'none'; return; }
 
-            // Touch devices keep the plain hero background
-            if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
-                canvas.style.display = 'none';
-                return;
-            }
-
-            const CELL = 60;              // cell size in px
-            const REACH = 140;            // cursor reach in px
-            const HOLD_MS = 400;          // lit cell holds before fading
-            const FADE_MS = 800;          // fade-out duration
-            const MAX_ALPHA = 0.16;       // brightness of a fully lit cell
-            const ORANGE = '255, 100, 50';
-            const INK = '17, 17, 17';
+            const CELL = 60;
+            const HOLD_MS = 400;
+            const FADE_MS = 800;
+            const MAX_ALPHA = 0.16;
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            let width = 0, height = 0;
-            let cols = 0, rows = 0;
-            let levels = new Float32Array(0);   // brightness per cell
-            let litAt = new Float32Array(0);    // last lit time per cell
-            let pulses = [];                    // click rings
+            let width = 0, height = 0, cols = 0, rows = 0;
+            let levels = new Float32Array(0);
+            let litAt = new Float32Array(0);
+            let pulses = [];
             let visible = false;
             let rafId = 0;
             let lastTime = 0;
-            let dirty = true;
 
-            const isDark = () => document.documentElement.classList.contains('dark-mode');
+            // Smaller reach on phones so the lit area fits the screen
+            const reach = () => (window.innerWidth < 600 ? 90 : 140);
 
-            // Size the canvas to the hero at screen density (capped at 2x)
             function resize() {
                 const rect = hero.getBoundingClientRect();
                 width = Math.max(1, Math.round(rect.width));
@@ -1809,179 +1144,139 @@
                 rows = Math.ceil(height / CELL);
                 levels = new Float32Array(cols * rows);
                 litAt = new Float32Array(cols * rows).fill(-1e9);
-                dirty = true;
-                if (reduceMotion) draw();
-                else wake();
+                draw();
+                wake();
             }
 
             function wake() {
-                if (!visible || rafId) return;
+                if (!visible || rafId || reduceMotion) return;
                 lastTime = 0;
                 rafId = requestAnimationFrame(frame);
             }
 
-            // Light every cell within REACH of a point
-            function light(x, y, now) {
-                const c0 = Math.max(0, Math.floor((x - REACH) / CELL));
-                const c1 = Math.min(cols - 1, Math.floor((x + REACH) / CELL));
-                const r0 = Math.max(0, Math.floor((y - REACH) / CELL));
-                const r1 = Math.min(rows - 1, Math.floor((y + REACH) / CELL));
+            function light(x, y) {
+                const R = reach();
+                const now = performance.now();
+                const c0 = Math.max(0, Math.floor((x - R) / CELL));
+                const c1 = Math.min(cols - 1, Math.floor((x + R) / CELL));
+                const r0 = Math.max(0, Math.floor((y - R) / CELL));
+                const r1 = Math.min(rows - 1, Math.floor((y + R) / CELL));
                 for (let row = r0; row <= r1; row++) {
                     for (let col = c0; col <= c1; col++) {
-                        const cx = col * CELL + CELL / 2;
-                        const cy = row * CELL + CELL / 2;
-                        const dist = Math.hypot(cx - x, cy - y);
-                        if (dist > REACH) continue;
-                        const t = 1 - dist / REACH;
-                        const value = t * t * (3 - 2 * t); // smooth falloff
+                        const dist = Math.hypot(col * CELL + CELL / 2 - x, row * CELL + CELL / 2 - y);
+                        if (dist > R) continue;
+                        const t = 1 - dist / R;
+                        const value = t * t * (3 - 2 * t);
                         const i = row * cols + col;
                         if (value > levels[i]) levels[i] = value;
                         litAt[i] = now;
                     }
                 }
-                dirty = true;
+                wake();
             }
 
-            // Thin grid lines: orange tint in dark mode, near-black in light mode
-            function drawGrid() {
-                const tint = isDark() ? ORANGE : INK;
+            function draw() {
+                const dark = html.classList.contains('dark-mode');
+                const rgb = dark ? '255, 100, 50' : '17, 17, 17';
+                ctx.clearRect(0, 0, width, height);
+
+                // Grid lines
                 ctx.lineWidth = 1;
-                ctx.strokeStyle = 'rgba(' + tint + ', 0.06)';
+                ctx.strokeStyle = `rgba(${rgb}, 0.06)`;
                 ctx.beginPath();
-                for (let x = 0; x <= width; x += CELL) {
-                    ctx.moveTo(x + 0.5, 0);
-                    ctx.lineTo(x + 0.5, height);
-                }
-                for (let y = 0; y <= height; y += CELL) {
-                    ctx.moveTo(0, y + 0.5);
-                    ctx.lineTo(width, y + 0.5);
-                }
+                for (let x = 0; x <= width; x += CELL) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, height); }
+                for (let y = 0; y <= height; y += CELL) { ctx.moveTo(0, y + 0.5); ctx.lineTo(width, y + 0.5); }
                 ctx.stroke();
-            }
 
-            // Lit cells glow with the orange accent
-            function drawCells() {
+                // Lit cells (orange)
                 for (let i = 0; i < levels.length; i++) {
                     const v = levels[i];
                     if (v <= 0.01) continue;
                     const col = i % cols;
                     const row = (i - col) / cols;
-                    ctx.fillStyle = 'rgba(' + ORANGE + ', ' + (v * MAX_ALPHA).toFixed(3) + ')';
+                    ctx.fillStyle = `rgba(255, 100, 50, ${(v * MAX_ALPHA).toFixed(3)})`;
                     ctx.fillRect(col * CELL + 1, row * CELL + 1, CELL - 2, CELL - 2);
                 }
-            }
 
-            // Fade the grid out toward the hero edges
-            function fadeEdges() {
-                const g = ctx.createRadialGradient(
-                    width / 2, height / 2, 0,
-                    width / 2, height / 2, Math.hypot(width, height) / 2
-                );
-                g.addColorStop(0, 'rgba(0, 0, 0, 1)');
-                g.addColorStop(0.6, 'rgba(0, 0, 0, 1)');
-                g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                // Fade toward the edges
+                const g = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, Math.hypot(width, height) / 2);
+                g.addColorStop(0, 'rgba(0,0,0,1)');
+                g.addColorStop(0.6, 'rgba(0,0,0,1)');
+                g.addColorStop(1, 'rgba(0,0,0,0)');
                 ctx.globalCompositeOperation = 'destination-in';
                 ctx.fillStyle = g;
                 ctx.fillRect(0, 0, width, height);
                 ctx.globalCompositeOperation = 'source-over';
             }
 
-            function draw() {
-                ctx.clearRect(0, 0, width, height);
-                drawGrid();
-                drawCells();
-                fadeEdges();
-                dirty = false;
-            }
-
             function frame(now) {
                 const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 1 / 60;
                 lastTime = now;
 
-                // Expand click rings and light the cells they pass
+                // Click rings
                 for (let p = pulses.length - 1; p >= 0; p--) {
                     const pulse = pulses[p];
-                    const ringR = ((now - pulse.time) / 1000) * 420; // px per second
-                    if (ringR > Math.hypot(width, height) + CELL) {
-                        pulses.splice(p, 1);
-                        continue;
-                    }
+                    const ringR = ((now - pulse.time) / 1000) * 420;
+                    if (ringR > Math.hypot(width, height) + CELL) { pulses.splice(p, 1); continue; }
                     for (let row = 0; row < rows; row++) {
                         for (let col = 0; col < cols; col++) {
-                            const cx = col * CELL + CELL / 2;
-                            const cy = row * CELL + CELL / 2;
-                            const d = Math.abs(Math.hypot(cx - pulse.x, cy - pulse.y) - ringR);
+                            const d = Math.abs(Math.hypot(col * CELL + CELL / 2 - pulse.x, row * CELL + CELL / 2 - pulse.y) - ringR);
                             if (d > CELL * 0.7) continue;
                             const v = 1 - d / (CELL * 0.7);
                             const i = row * cols + col;
                             if (v > levels[i]) levels[i] = v;
                             litAt[i] = now;
-                            dirty = true;
                         }
                     }
                 }
 
-                // Hold, then fade lit cells
+                // Hold, then fade
                 const fadeStep = dt * (1000 / FADE_MS);
+                let active = pulses.length > 0;
                 for (let i = 0; i < levels.length; i++) {
                     if (levels[i] <= 0) continue;
-                    if (now - litAt[i] > HOLD_MS) {
-                        levels[i] = Math.max(0, levels[i] - fadeStep);
-                        dirty = true;
-                    }
+                    if (now - litAt[i] > HOLD_MS) levels[i] = Math.max(0, levels[i] - fadeStep);
+                    if (levels[i] > 0) active = true;
                 }
 
-                if (dirty) draw();
-
-                let active = pulses.length > 0;
-                if (!active) {
-                    for (let i = 0; i < levels.length; i++) {
-                        if (levels[i] > 0) { active = true; break; }
-                    }
-                }
+                draw();
                 rafId = active ? requestAnimationFrame(frame) : 0;
             }
 
-            const localPoint = (e) => {
+            // Pointer and touch input, only inside the hero
+            function localPoint(clientX, clientY) {
                 const rect = canvas.getBoundingClientRect();
-                return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-            };
-
-            // Track pointer and clicks inside the hero only
-            if (!reduceMotion) {
-                hero.addEventListener('pointermove', (e) => {
-                    const pt = localPoint(e);
-                    if (pt.x < 0 || pt.y < 0 || pt.x > width || pt.y > height) return;
-                    light(pt.x, pt.y, performance.now());
-                    wake();
-                });
-
-                hero.addEventListener('pointerdown', (e) => {
-                    const pt = localPoint(e);
-                    if (pt.x < 0 || pt.y < 0 || pt.x > width || pt.y > height) return;
-                    pulses.push({ x: pt.x, y: pt.y, time: performance.now() });
-                    wake();
-                });
+                return { x: clientX - rect.left, y: clientY - rect.top };
             }
+            function inside(p) {
+                return p.x >= 0 && p.y >= 0 && p.x <= width && p.y <= height;
+            }
+            hero.addEventListener('pointermove', e => {
+                const p = localPoint(e.clientX, e.clientY);
+                if (inside(p)) light(p.x, p.y);
+            });
+            hero.addEventListener('pointerdown', e => {
+                const p = localPoint(e.clientX, e.clientY);
+                if (inside(p) && !reduceMotion) { pulses.push({ x: p.x, y: p.y, time: performance.now() }); wake(); }
+            });
+            hero.addEventListener('touchmove', e => {
+                const t = e.touches[0];
+                if (!t) return;
+                const p = localPoint(t.clientX, t.clientY);
+                if (inside(p)) light(p.x, p.y);
+            }, { passive: true });
+            hero.addEventListener('touchstart', e => {
+                const t = e.touches[0];
+                if (!t) return;
+                const p = localPoint(t.clientX, t.clientY);
+                if (inside(p)) light(p.x, p.y);
+            }, { passive: true });
 
-            // Redraw on theme change
-            new MutationObserver(() => {
-                dirty = true;
-                if (reduceMotion) draw();
-                else wake();
-            }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-            // Only run while the hero is on screen
-            const io = new IntersectionObserver((entries) => {
+            new MutationObserver(() => draw()).observe(html, { attributes: true, attributeFilter: ['class'] });
+            new IntersectionObserver(entries => {
                 visible = entries[0].isIntersecting;
                 if (visible) wake();
-                else if (rafId) {
-                    cancelAnimationFrame(rafId);
-                    rafId = 0;
-                }
-            }, { threshold: 0 });
-            io.observe(hero);
-
+            }, { threshold: 0 }).observe(hero);
             new ResizeObserver(resize).observe(hero);
             resize();
         })();
