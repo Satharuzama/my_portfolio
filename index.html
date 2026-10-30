@@ -373,17 +373,17 @@ html.dark-mode .github-skill { filter: grayscale(100%) brightness(0) invert(1); 
 html.dark-mode .github-skill:hover { filter: invert(1); }
 
 /* Chess king at rest: black king only */
-.chess-hover { display: none; }
+.chess-item .hobby-icon.chess-hover { display: none; }
 /* Chess king on desktop hover: show gold king, hide black king */
 @media (hover: hover) and (pointer: fine) {
   .chess-item:hover .chess-hover { display: block; }
-  .chess-item:hover .mono-icon { display: none; }
+  .chess-item:hover .hobby-icon.mono-icon { display: none; }
 }
 
-/* Phones and touch screens: show black king only, no gold switch */
+/* Phones and touch screens: show gold king only */
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
-  .chess-hover { display: none; }
-  .mono-icon { display: block; }
+  .chess-item .hobby-icon.chess-hover { display: block; }
+  .chess-item .hobby-icon.mono-icon { display: none; }
 }
 
 /* Brand masks: colour from background-color only, no filters */
