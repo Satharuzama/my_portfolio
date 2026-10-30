@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -343,7 +343,7 @@
         }
         .skill-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
         .skill-item:last-child { margin-bottom: 0; }
-.skill-icon { width: 24px; height: 24px; flex-shrink: 0; object-fit: contain; }
+.skill-icon { width: 32px; height: 32px; flex-shrink: 0; object-fit: contain; }
         .skill-name { color: var(--text-main); font-size: 1rem; }
 
         /* ===== Monochrome icon colour system ===== */
@@ -362,6 +362,15 @@ html.dark-mode .skill-icon, html.dark-mode .hobby-icon { filter: grayscale(100%)
   html.dark-mode .skill-icon, html.dark-mode .hobby-icon { filter: none; }
   .chess-item .hobby-icon.chess-hover { display: none; }
 }
+
+/* Hover size on computer - 15% larger */
+@media (hover: hover) and (pointer: fine) {
+  .skill-icon:hover, .hobby-icon:hover { transform: scale(1.15); transition: transform 0.2s ease; }
+}
+/* GitHub icon: dark mode shows white via invert, hover preserves invert */
+.github-skill { filter: none; }
+html.dark-mode .github-skill { filter: grayscale(100%) brightness(0) invert(1); }
+html.dark-mode .github-skill:hover { filter: invert(1); }
 
 /* Chess king hover: show flaticon on desktop hover */
 @media (hover: hover) and (pointer: fine) {
@@ -593,16 +602,33 @@ html.dark-mode .github-logo { filter: invert(1); }
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        html.dark-mode .github-skill { filter: invert(1); }
-        html.dark-mode .github-skill:hover { filter: invert(1); }
-.skill-icon, .hobby-icon { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; }
-.hobby-icon { width: 32px; height: 32px; }
+        /* GitHub icon: dark mode shows white via invert, hover preserves invert */
+.github-skill { filter: none; }
+html.dark-mode .github-skill { filter: grayscale(100%) brightness(0) invert(1); }
+html.dark-mode .github-skill:hover { filter: invert(1); }
+/* ===== Skill and Hobby Icons ===== */
+.skill-icon, .hobby-icon { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; }
 .skill-icon.mono-icon, .hobby-icon.mono-icon { filter: brightness(0); }
 html.dark-mode .skill-icon.mono-icon, html.dark-mode .hobby-icon.mono-icon { filter: brightness(0) invert(1); }
 .hobby-icon-wrapper { position: relative; display: inline-block; width: 32px; height: 32px; }
 .hobby-icon-wrapper .hobby-icon { position: absolute; inset: 0; width: 32px; height: 32px; object-fit: contain; }
 @media (hover: hover) and (pointer: fine) {
   html.dark-mode .hobby-icon:hover, html .hobby-icon:hover { filter: none; }
+}
+/* Five skill icons with mask+color system */
+.ic { position: relative; width: 32px; height: 32px; flex-shrink: 0; display: inline-block; }
+.hobby-item .ic { width: 32px; height: 32px; }
+.ic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: filter 0.3s ease; }
+.ic-mask { position: absolute; inset: 0; width: 100%; height: 100%; background-color: var(--text-main); -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
+.ic-color { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: none; }
+@media (hover: hover) and (pointer: fine) {
+    .ic:hover .ic-mask { display: none; }
+    .ic:hover .ic-color { display: block; }
+}
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+    .ic .ic-mask { display: none; }
+    .ic .ic-color { display: block; }
+}
     </style>
 </head>
 
@@ -689,32 +715,28 @@ html.dark-mode .skill-icon.mono-icon, html.dark-mode .hobby-icon.mono-icon { fil
                     <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python icon">
                     <span class="skill-name">Python</span>
                 </div>
-                <div class="skill-item">
-                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript icon">
-                    <span class="skill-name">JavaScript</span>
-                </div>
             </div>
 
             <div class="skill-group">
                 <h3>Front-end</h3>
                 <div class="skill-item">
-                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 icon">
+                    <span class="ic"><span class="ic-mask" style="--logo: url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/html5.svg)"></span><img class="ic-color" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 icon"></span>
                     <span class="skill-name">HTML5</span>
                 </div>
                 <div class="skill-item">
-                    <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 icon">
+                    <span class="ic"><span class="ic-mask" style="--logo: url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/css3.svg)"></span><img class="ic-color" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 icon"></span>
                     <span class="skill-name">CSS3</span>
                 </div>
                 <div class="skill-item">
-                    <img class="skill-icon mono-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS icon">
-                    <span class="skill-name">Tailwind CSS</span>
+                    <span class="ic"><span class="ic-mask" style="--logo: url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/javascript.svg)"></span><img class="ic-color" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript icon"></span>
+                    <span class="skill-name">JavaScript</span>
                 </div>
             </div>
 
             <div class="skill-group">
                 <h3>Database</h3>
                 <div class="skill-item">
-                    <img class="skill-icon mono-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL icon">
+                    <span class="ic"><span class="ic-mask" style="--logo: url(https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/mysql.svg)"></span><img class="ic-color" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL icon"></span>
                     <span class="skill-name">MySQL and DBMS</span>
                 </div>
             </div>
