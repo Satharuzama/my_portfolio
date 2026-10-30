@@ -344,9 +344,9 @@
         .skill-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
         .skill-item:last-child { margin-bottom: 0; }
 .skill-icon { width: 32px; height: 32px; flex-shrink: 0; object-fit: contain; }
-        .skill-name { color: var(--text-main); font-size: 1rem; }
+.skill-name { color: var(--text-main); font-size: 1rem; }
 
-        /* ===== Monochrome icon colour system ===== */
+/* ===== Monochrome icon colour system ===== */
 /* Light mode: icons are #111111 (black). Dark mode: icons are #FEFFF8 (white). */
 .skill-icon, .hobby-icon { filter: grayscale(100%) brightness(0); transition: filter 0.3s ease; }
 html.dark-mode .skill-icon, html.dark-mode .hobby-icon { filter: grayscale(100%) brightness(0) invert(1); }
@@ -372,15 +372,18 @@ html.dark-mode .skill-icon, html.dark-mode .hobby-icon { filter: grayscale(100%)
 html.dark-mode .github-skill { filter: grayscale(100%) brightness(0) invert(1); }
 html.dark-mode .github-skill:hover { filter: invert(1); }
 
-/* Chess king hover: show flaticon on desktop hover */
+/* Chess king at rest: black king only */
+.chess-hover { display: none; }
+/* Chess king on desktop hover: show gold king, hide black king */
 @media (hover: hover) and (pointer: fine) {
-  .chess-item .hobby-icon.chess-hover { display: block; }
-  .chess-item .hobby-icon:first-child { display: none; }
+  .chess-item:hover .chess-hover { display: block; }
+  .chess-item:hover .mono-icon { display: none; }
 }
 
-/* Phones and touch screens: show base icon only */
+/* Phones and touch screens: show black king only, no gold switch */
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
-  .chess-item .hobby-icon.chess-hover { display: none; }
+  .chess-hover { display: none; }
+  .mono-icon { display: block; }
 }
 
 /* Brand masks: colour from background-color only, no filters */
@@ -628,6 +631,14 @@ html.dark-mode .skill-icon.mono-icon, html.dark-mode .hobby-icon.mono-icon { fil
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
     .ic .ic-mask { display: none; }
     .ic .ic-color { display: block; }
+}
+@media (max-width: 768px) {
+  .skill-icon, .ic { width: 24px; height: 24px; }
+  .hobby-icon, .hobby-icon-wrap, .hobby-icon-wrapper { width: 24px; height: 24px; }
+  .brand { width: 20px; height: 20px; }
+  .contact-icon-box { width: 24px; height: 24px; }
+  .contact-icon-box .mono-logo, .contact-icon-box .color-logo { width: 24px; height: 24px; }
+  .hobbies-list { flex-wrap: nowrap; }
 }
     </style>
 </head>
@@ -882,7 +893,7 @@ html.dark-mode .skill-icon.mono-icon, html.dark-mode .hobby-icon.mono-icon { fil
             <div class="hobbies-list">
                 <div class="hobby-item chess-item">
                     <span class="hobby-icon-wrapper">
-                        <img class="hobby-icon mono-icon" src="https://api.iconify.design/mdi/chess-king.svg" alt="Chess king icon">
+                        <img class="hobby-icon mono-icon" src="https://cdn-icons-png.flaticon.com/512/657/657896.png" alt="Chess king icon">
                         <img class="hobby-icon chess-hover" src="https://cdn-icons-png.flaticon.com/512/657/657896.png" alt="Chess king icon hover">
                     </span>
                     <div class="hobby-label">Chess</div>
